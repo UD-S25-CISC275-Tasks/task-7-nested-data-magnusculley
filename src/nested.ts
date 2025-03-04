@@ -1,3 +1,4 @@
+import Q from "q";
 import { Answer } from "./interfaces/answer";
 import { Question, QuestionType } from "./interfaces/question";
 
@@ -35,6 +36,13 @@ export function findQuestion(
     questions: Question[],
     id: number,
 ): Question | null {
+    const result = questions.filter(
+        (question: Question): boolean => question.id === id,
+    );
+    const found = { ...result[0] };
+    if (result.length > 0) {
+        return found;
+    }
     return null;
 }
 
