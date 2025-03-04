@@ -204,7 +204,20 @@ export function changeQuestionTypeById(
     targetId: number,
     newQuestionType: QuestionType,
 ): Question[] {
-    return [];
+    const result = questions.map(
+        (question: Question): Question =>
+            question.id === targetId ?
+                {
+                    ...question,
+                    type: newQuestionType,
+                    options:
+                        newQuestionType !== "multiple_choice_question" ?
+                            []
+                        :   question.options,
+                }
+            :   question,
+    );
+    return result;
 }
 
 /**
@@ -217,13 +230,30 @@ export function changeQuestionTypeById(
  * Remember, if a function starts getting too complicated, think about how a helper function
  * can make it simpler! Break down complicated tasks into little pieces.
  */
+
 export function editOption(
     questions: Question[],
     targetId: number,
     targetOptionIndex: number,
     newOption: string,
 ): Question[] {
-    return [];
+    const result = questions.map(
+        (question: Question): Question =>
+            question.id === targetId ?
+                {
+                    ...question,
+                    options:
+                        targetOptionIndex === -1 ?
+                            [...question.options, newOption]
+                        :   question.options.map((option, index) =>
+                                index === targetOptionIndex ? newOption : (
+                                    option
+                                ),
+                            ),
+                }
+            :   question,
+    );
+    return result; // I think I might be going off the deep end of ternary
 }
 
 /***
