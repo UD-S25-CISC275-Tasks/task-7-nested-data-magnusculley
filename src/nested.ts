@@ -272,18 +272,15 @@ export function duplicateQuestionInArray(
     );
 
     if (targetIndex === -1) {
-        // If the targetId is not found, return the original array unchanged
         return questions;
     }
 
-    // Use the duplicateQuestion function to create a copy of the question with newId
     const duplicatedQuestion = duplicateQuestion(newId, questions[targetIndex]);
 
-    // Insert the duplicated question immediately after the original question
     const result = [
-        ...questions.slice(0, targetIndex + 1), // All questions before the target question
-        duplicatedQuestion, // The duplicated question
-        ...questions.slice(targetIndex + 1), // All questions after the target question
+        ...questions.slice(0, targetIndex + 1),
+        duplicatedQuestion,
+        ...questions.slice(targetIndex + 1),
     ];
 
     return result;
